@@ -1,17 +1,9 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
-const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
-  },
-};
-
-export default nextConfig;
+const config: NextConfig = {
+  // Level contient du code natif : on demande à Next de ne pas le "bundler".
+  serverExternalPackages: ['level', 'classic-level'],
+  // next/image n'accepte que les domaines déclarés ici.
+  images: { remotePatterns: [{ hostname: 'images.unsplash.com' }] },
+}
+export default config
