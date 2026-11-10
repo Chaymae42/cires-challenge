@@ -1,9 +1,10 @@
 'use client'
 import { useRef, useState } from 'react'
 import type { Photo } from '@/lib/unsplash'
+import type { Category } from '@/lib/categories'
 
 // Toute la logique de la galerie : chargement paginé + likes. Les composants restent de simples vues.
-export function usePhotos() {
+export function usePhotos(category: Category) {
   const [photos, setPhotos] = useState<Photo[]>([])
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false) // plus de photos à charger
@@ -36,8 +37,8 @@ export function usePhotos() {
       setPhotos((ps) => ps.map((p) => (p.id === id ? { ...p, liked } : p)))
     const before = photos.find((p) => p.id === id)!.liked
     setLiked(!before)
-    const res = await fetch('/api/likes', { method: 'POST', body: JSON.stringify({ photoId: id }) })
-    if (!res.ok) setLiked(before)
+    const res = await fetch(`/api/photos?page=${page.current}&category=${category}`)
+    if (!res.ok) throw new Error() // ← cette ligne utilise res ; si elle manque, l'erreur apparaît
   }
 
   return { photos, loading, done, loadMore, toggleLike }

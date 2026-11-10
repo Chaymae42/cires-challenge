@@ -2,9 +2,10 @@
 import { usePhotos } from '@/hooks/usePhotos'
 import { useOnVisible } from '@/hooks/useOnVisible'
 import { PhotoCard } from './PhotoCard'
+import type { Category } from '@/lib/categories'
 
-export function PhotoGrid() {
-  const { photos, loading, done, loadMore, toggleLike } = usePhotos()
+export function PhotoGrid({ category }: { category: Category }) {
+  const { photos, loading, done, loadMore, toggleLike } = usePhotos(category)
   // Le div "sentinelle" en bas de liste : quand il devient visible, on charge la suite.
   const sentinel = useOnVisible(loadMore, photos.length)
 
