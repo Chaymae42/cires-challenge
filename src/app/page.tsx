@@ -18,7 +18,7 @@ export default async function Home() {
         <h1 className="text-2xl font-semibold">Galerie</h1>
         <form action={logout}>
           <span className="mr-3 text-sm">{user}</span>
-          <button className="text-sm underline">Se déconnecter</button>
+         <button className="text-sm underline transition hover:text-red-600">Se déconnecter</button>
         </form>
       </header>
       <PhotoGrid />

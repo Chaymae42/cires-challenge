@@ -28,9 +28,15 @@ export function LoginForm() {
         <a href="#" className="font-medium">Forgot password</a>
       </div>
       {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
-      <button className="w-full rounded-lg bg-slate-900 py-2.5 font-medium text-white">Sign in</button>
-      {/* Bouton purement visuel : la maquette l'affiche, l'énoncé ne demande pas Google OAuth */}
-      <button type="button" className="w-full rounded-lg border py-2.5 font-medium">Sign in with Google</button>
+      {/* Bouton principal : s'éclaircit au survol, s'enfonce au clic */}
+<button className="w-full rounded-lg bg-slate-900 py-2.5 font-medium text-white transition hover:bg-slate-700 active:scale-[0.98]">
+  Sign in
+</button>
+
+{/* Bouton secondaire : fond gris clair au survol */}
+<button type="button" className="w-full rounded-lg border py-2.5 font-medium transition hover:bg-gray-100 active:scale-[0.98]">
+  Sign in with Google
+</button>
     </form>
   )
 }
