@@ -2,6 +2,7 @@
 import { FormEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Field } from './Field'
+import { GoogleIcon } from './GoogleIcon'
 
 export function LoginForm() {
   const router = useRouter()
@@ -33,10 +34,24 @@ export function LoginForm() {
   Sign in
 </button>
 
-{/* Bouton secondaire : fond gris clair au survol */}
-<button type="button" className="w-full rounded-lg border py-2.5 font-medium transition hover:bg-gray-100 active:scale-[0.98]">
-  Sign in with Google
+{/* Bouton secondaire Google  : fond gris clair au survol */}
+<button type="button" className="flex w-full items-center justify-center gap-3 rounded-lg border py-2.5 font-medium transition hover:bg-gray-100 active:scale-[0.98]">
+   <GoogleIcon /> Sign in with Google
 </button>
+
+{/* Lien d'inscription : décoratif, il n'y a pas de page d'inscription dans l'énoncé */}
+<p className="pt-2 text-center text-sm text-gray-500">
+  Don’t have an account?{' '}
+  <button
+    type="button"
+    className="rounded px-1 font-semibold text-slate-900 underline decoration-2 underline-offset-4 transition
+               hover:bg-slate-100 hover:text-indigo-600 hover:decoration-indigo-600
+               focus-visible:outline-2 focus-visible:outline-indigo-600 active:scale-95"
+  >
+    Sign up for free
+  </button>
+</p>
+
     </form>
   )
 }
