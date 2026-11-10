@@ -5,6 +5,10 @@ import type { Category } from '@/lib/categories'
 
 // Toute la logique de la galerie : chargement paginé + likes. Les composants restent de simples vues.
 export function usePhotos(category: Category) {
+    // Fusionne deux listes de photos sans doublon (même id = une seule carte).
+// Map garde une entrée par id et conserve l'ordre d'arrivée.
+const merge = (prev: Photo[], batch: Photo[]) =>
+  [...new Map([...prev, ...batch].map((p): [string, Photo] => [p.id, p])).values()]
   const [photos, setPhotos] = useState<Photo[]>([])
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false) // plus de photos à charger
@@ -21,8 +25,9 @@ export function usePhotos(category: Category) {
       if (!res.ok) throw new Error()
       const batch: Photo[] = await res.json()
       page.current++
-      setPhotos((prev) => [...prev, ...batch])
-      setDone(batch.length === 0)
+      // On ignore les doublons pour garder des clés uniques dans la liste.
+        setPhotos((prev) => merge(prev, batch))
+        setDone(batch.length === 0)
     } catch {
       setDone(true) // en cas d'erreur, on arrête pour ne pas boucler
     } finally {
